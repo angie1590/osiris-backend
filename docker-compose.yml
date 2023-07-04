@@ -21,13 +21,17 @@ services:
     depends_on:
       - db
   db:
+    container_name: osiris-db
     image: postgres:13-alpine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB = devdb
       - POSTGRES_USER = osiris
       - POSTGRES_PASSWORD = osiris2023
+      - POSTGRES_HOST_AUTH_METHOD=trust
 
 volumes:
   dev-db-data:
