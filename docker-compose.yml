@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   app:
+    container_name: osiris-backend
     build:
       context: .
       args:
@@ -8,6 +9,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - ./osirisBackend:/osirisBackend
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"

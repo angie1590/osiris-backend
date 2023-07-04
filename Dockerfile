@@ -1,11 +1,13 @@
 FROM python:3.9-alpine3.13
 
-ENV PYTHONUNBUFFERED 1
+LABEL maintainer="OpenLatina"
+
+ENV PYTHONUNBUFFERED = 1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-COPY ./app /app
-WORKDIR /app
+COPY ./osirisBackend /osirisBackend
+WORKDIR /osirisBackend
 EXPOSE 8000
 
 ARG DEV=false
@@ -19,8 +21,8 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-adduser
 
 ENV PATH="/py/bin:$PATH"
 
-USER django-user
+USER django-adduser
