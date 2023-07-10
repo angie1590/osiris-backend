@@ -18,7 +18,7 @@ class CommandTest(SimpleTestCase):
 
         call_command('wait_for_db')
 
-        patch_check.assert_called_once_with(database=['default'])
+        patch_check.assert_called_once_with(databases=['default'])
 
     @patch('time.sleep')
     def test_wait_for_db_delay(self, patched_sleep, patch_check):
@@ -30,4 +30,4 @@ class CommandTest(SimpleTestCase):
 
         self.assertEqual(patch_check.call_count, 6)
 
-        patch_check.assert_called_with(database=['default'])
+        patch_check.assert_called_with(databases=['default'])
