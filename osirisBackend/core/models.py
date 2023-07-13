@@ -1,6 +1,7 @@
 """
 Database models
 """
+from django.conf import settings
 
 from django.db import models
 from django.contrib.auth.models import (
@@ -8,6 +9,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.utils.timezone import now
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -43,3 +45,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+class ProductType(models.Model):
+    """Product Type object"""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    description = models.CharField(max_length=255, blank=False)
+    state = models.BooleanField(default=True)
+    create_date = models.DateField(default=now)
+    modify_date = models.DateField(default=None)
+
+    def __str__(self):
+        return self.description

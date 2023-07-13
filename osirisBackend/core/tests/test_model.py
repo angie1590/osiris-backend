@@ -2,6 +2,7 @@
 Test for models
 """
 
+from datetime import datetime
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -58,6 +59,8 @@ class ModelTests(TestCase):
             user = user,
             description = 'Sample product type description',
             state = True,
+            create_date = datetime.now(),
+            modify_date = datetime.now(),
         )
 
         self.assertEqual(str(product_type), product_type.description)
