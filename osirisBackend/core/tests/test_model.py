@@ -5,6 +5,8 @@ Test for models
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from core import models
+
 class ModelTests(TestCase):
     """Test models."""
 
@@ -46,3 +48,16 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_ProductType(self):
+        """Test creating a product type is successful"""
+        user = get_user_model().objects.create_user(
+            'test@example.com','testpass123'
+        )
+        product_type = models.ProductType.objects.create(
+            user = user,
+            description = 'Sample product type description',
+            state = True,
+        )
+
+        self.assertEqual(str(product_type), product_type.description)
